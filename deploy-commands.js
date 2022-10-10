@@ -9,8 +9,8 @@ const commands = [
     .setName("server")
     .setDescription("Replies with server info!"),
   new SlashCommandBuilder()
-    .setName("user")
-    .setDescription("Replies with user info!"),
+    .setName("avatar")
+    .setDescription("Replies with avatar"),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

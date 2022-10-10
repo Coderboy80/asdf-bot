@@ -1,59 +1,34 @@
-// // Require the necessary discord.js classes
-const { Client, GatewayIntentBits } = require("discord.js");
+const {
+  Client,
+  GatewayIntentBits,
+  Embed,
+  DiscordAPIError,
+  EmbedBuilder,
+} = require("discord.js");
+
 const { token } = require("./config.json");
 
-// // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-client.once("ready", () => {
-  console.log("Ready!");
-});
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const { commandName } = interaction;
+  console.log(interaction.member.avatar);
 
   if (commandName === "ping") {
     await interaction.reply("Pong!");
   } else if (commandName === "server") {
     await interaction.reply("Server info.");
   } else if (commandName === "user") {
-    await interaction.reply("User info.");
-  }
-});
-
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-
-  const { commandName } = interaction;
-
-  if (commandName === "ping") {
-    await interaction.reply("Pong!");
-  } else if (commandName === "server") {
-    await interaction.reply(
-      `Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
-    );
-  } else if (commandName === "user") {
-    await interaction.reply("User info.");
-  }
-});
-
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-
-  const { commandName } = interaction;
-
-  if (commandName === "ping") {
-    await interaction.reply("Pong!");
-  } else if (commandName === "server") {
-    await interaction.reply(
-      `Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
-    );
-  } else if (commandName === "user") {
-    await interaction.reply(
-      `Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`
-    );
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("Embed")
+          .setImage(interaction.member.displayAvatarURL({ size: 1024 }))
+          .setDescription(interaction.member.displayName),
+      ],
+    });
   }
 });
 

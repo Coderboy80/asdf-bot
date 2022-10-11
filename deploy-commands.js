@@ -10,7 +10,13 @@ const commands = [
     .setDescription("Replies with server info!"),
   new SlashCommandBuilder()
     .setName("avatar")
-    .setDescription("Replies with avatar"),
+    .setDescription("Replies with avatar")
+    .addUserOption((option) =>
+      option
+        .setName("username")
+        .setDescription("Enter whose avatar you want to see!")
+        .setRequired(true)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

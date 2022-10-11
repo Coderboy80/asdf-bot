@@ -20,24 +20,38 @@ client.on("interactionCreate", async (interaction) => {
   const { commandName } = interaction;
 
   const replyUser = interaction.options.getUser("username");
+  const interactionMember = interaction.member;
 
   if (commandName === "ping") {
     await interaction.reply("Pong!");
   } else if (commandName === "server") {
     await interaction.reply("Server info.");
   } else if (commandName === "avatar") {
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle(replyUser.username)
-          .setImage(
-            interaction.options
-              .getUser("username")
-              .displayAvatarURL({ size: 1024, dynamic: true })
-              .replace(".webp", ".png")
-          ),
-      ],
-    });
+    if (replyUser === null) {
+      await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle(interactionMember.displayName)
+            .setImage(
+              interactionMember
+                .displayAvatarURL({ size: 1024, dynamic: true })
+                .replace(".webp", ".png")
+            ),
+        ],
+      });
+    } else {
+      await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle(replyUser.username)
+            .setImage(
+              replyUser
+                .displayAvatarURL({ size: 1024, dynamic: true })
+                .replace(".webp", ".png")
+            ),
+        ],
+      });
+    }
   }
 });
 

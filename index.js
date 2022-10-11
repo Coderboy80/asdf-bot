@@ -33,7 +33,7 @@ client.on("interactionCreate", async (interaction) => {
           .setImage(
             interaction.options
               .getUser("username")
-              .displayAvatarURL({ dynamic: true })
+              .displayAvatarURL({ size: 1024, dynamic: true })
               .replace(".webp", ".png")
           ),
       ],

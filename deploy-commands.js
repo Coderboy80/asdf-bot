@@ -17,6 +17,21 @@ const commands = [
         .setDescription("Enter whose avatar you want to see!")
         .setRequired(true)
     ),
+  new SlashCommandBuilder()
+    .setName("roll")
+    .setDescription("Returns a random number between the given numbers!")
+    .addIntegerOption((option) =>
+      option
+        .setName("lower-number")
+        .setDescription("Enter the lower number!")
+        .setRequired(true)
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("higher-number")
+        .setDescription("Enter the higher number!")
+        .setRequired(true)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

@@ -22,6 +22,9 @@ client.on("interactionCreate", async (interaction) => {
   const replyUser = interaction.options.getUser("username");
   const interactionMember = interaction.member;
 
+  const lowerNumber = interaction.options.getInteger("lower-number");
+  const higherNumber = interaction.options.getInteger("higher-number");
+
   if (commandName === "ping") {
     await interaction.reply("Pong!");
   } else if (commandName === "server") {
@@ -51,6 +54,17 @@ client.on("interactionCreate", async (interaction) => {
             ),
         ],
       });
+    }
+  } else if (commandName === "roll") {
+    if (lowerNumber > higherNumber) {
+      await interaction.reply(
+        "Retry. Lower number cannot be more than higher number."
+      );
+    } else {
+      const randomNumber =
+        Math.floor(Math.random() * (higherNumber - lowerNumber + 1)) +
+        lowerNumber;
+      await interaction.reply(`Your random number is ${randomNumber}.`);
     }
   }
 });

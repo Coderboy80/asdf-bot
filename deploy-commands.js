@@ -15,7 +15,7 @@ const commands = [
       option
         .setName("username")
         .setDescription("Enter whose avatar you want to see!")
-        .setRequired(true)
+        .setRequired(false)
     ),
   new SlashCommandBuilder()
     .setName("roll")

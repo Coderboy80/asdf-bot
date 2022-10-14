@@ -1,72 +1,39 @@
 const {
   Client,
   GatewayIntentBits,
-  Embed,
   DiscordAPIError,
-  EmbedBuilder,
+  Collection,
 } = require("discord.js");
-
+const fs = require("fs");
 const { token } = require("./config.json");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.once("ready", function () {
-  console.log("Ready!");
-});
+client.slashCmds = new Collection();
 
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+module.exports = { client };
 
-  const { commandName } = interaction;
+function events() {
+  const dirs = fs.readdirSync("./events");
 
-  const replyUser = interaction.options.getUser("username");
-  const interactionMember = interaction.member;
+  dirs.forEach((dir) => {
+    require(`./events/${dir}`);
+  });
+}
 
-  const lowerNumber = interaction.options.getInteger("lower-number");
-  const higherNumber = interaction.options.getInteger("higher-number");
+function slash() {
+  const dirs = fs.readdirSync("./slashCommands");
 
-  if (commandName === "ping") {
-    await interaction.reply("Pong!");
-  } else if (commandName === "server") {
-    await interaction.reply("Server info.");
-  } else if (commandName === "avatar") {
-    if (replyUser === null) {
-      await interaction.reply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle(interactionMember.displayName)
-            .setImage(
-              interactionMember
-                .displayAvatarURL({ size: 1024, dynamic: true })
-                .replace(".webp", ".png")
-            ),
-        ],
-      });
-    } else {
-      await interaction.reply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle(replyUser.username)
-            .setImage(
-              replyUser
-                .displayAvatarURL({ size: 1024, dynamic: true })
-                .replace(".webp", ".png")
-            ),
-        ],
-      });
-    }
-  } else if (commandName === "roll") {
-    if (lowerNumber > higherNumber) {
-      await interaction.reply(
-        "Retry. Lower number cannot be more than higher number."
-      );
-    } else {
-      const randomNumber =
-        Math.floor(Math.random() * (higherNumber - lowerNumber + 1)) +
-        lowerNumber;
-      await interaction.reply(`Your random number is ${randomNumber}.`);
-    }
-  }
-});
+  let files = fs.readdirSync(`./slashCommands/${dirs}`);
+
+  files.forEach((file) => {
+    let command = require(`./slashCommands/${dirs}/${file}`);
+    client.slashCmds.set(command.NAME, command);
+  });
+}
+
+events();
+
+slash();
 
 client.login(token);

@@ -32,6 +32,33 @@ const commands = [
         .setDescription("Enter the higher number!")
         .setRequired(true)
     ),
+  new SlashCommandBuilder()
+    .setName("host-quiz")
+    .setDescription("Host  a quiz!")
+    .addStringOption((option) =>
+      option
+        .setName("question")
+        .setDescription("Enter the question.")
+        .setRequired(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("option-1")
+        .setDescription("Enter the first option")
+        .setRequired(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("option-2")
+        .setDescription("Enter the second option")
+        .setRequired(true)
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("correct-answer")
+        .setDescription("Enter the correct answer")
+        .setRequired(true)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

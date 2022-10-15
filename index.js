@@ -7,8 +7,14 @@ const {
 const fs = require("fs");
 const { token } = require("./config.json");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+  ],
+});
 client.slashCmds = new Collection();
 
 module.exports = { client };

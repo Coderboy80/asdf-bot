@@ -1,10 +1,6 @@
 module.exports = {
   NAME: "roll",
   slashRun: async (interaction) => {
-    const { commandName } = interaction;
-    const replyUser = interaction.options.getUser("username");
-    const interactionMember = interaction.member;
-
     const lowerNumber = interaction.options.getInteger("lower-number");
     const higherNumber = interaction.options.getInteger("higher-number");
     if (lowerNumber > higherNumber) {

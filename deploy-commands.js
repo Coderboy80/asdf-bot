@@ -68,11 +68,21 @@ const commands = [
         .setDescription("Enter the image you want to see!")
         .setRequired(true)
     )
+    .addStringOption((option) =>
+      option
+        .setName("action")
+        .setDescription("What to do with the image?")
+        .setRequired(true)
+        .addChoices(
+          { name: "Rotate", value: "rotate" },
+          { name: "Blur", value: "blur" }
+        )
+    )
     .addIntegerOption((option) =>
       option
-        .setName("rotate")
-        .setDescription("Enter the rotation angle!")
-        .setRequired(false)
+        .setName("value")
+        .setDescription("Enter the magnitude for the action")
+        .setRequired(true)
     ),
 ].map((command) => command.toJSON());
 

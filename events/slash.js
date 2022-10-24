@@ -1,5 +1,4 @@
 const { client } = require("../index.js");
-const { slashRun } = require("../slashCommands/fun/ping.js");
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;

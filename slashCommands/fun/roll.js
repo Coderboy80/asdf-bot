@@ -11,7 +11,7 @@ module.exports = {
       const randomNumber =
         Math.floor(Math.random() * (higherNumber - lowerNumber + 1)) +
         lowerNumber;
-      await interaction.reply(`Your random number is ${randomNumber}.`);
+      await interaction.reply(`Your random number is **${randomNumber}**.`);
     }
   },
 };

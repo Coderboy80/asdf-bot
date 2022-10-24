@@ -74,8 +74,8 @@ const commands = [
         .setDescription("What to do with the image?")
         .setRequired(true)
         .addChoices(
-          { name: "Rotate", value: "rotate" },
-          { name: "Blur", value: "blur" }
+          { name: "Rotate(0-360)", value: "rotate" },
+          { name: "Blur(1-20)", value: "blur" }
         )
     )
     .addIntegerOption((option) =>
@@ -84,6 +84,9 @@ const commands = [
         .setDescription("Enter the magnitude for the action")
         .setRequired(true)
     ),
+  new SlashCommandBuilder()
+    .setName("trivia")
+    .setDescription("Get a trivia question!"),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

@@ -8,7 +8,6 @@ module.exports = {
     const attachment = interaction.options.getAttachment("picture");
     let action = interaction.options.getString("action");
     let value = interaction.options.getInteger("value");
-    console.log(action);
     const image = Jimp.read(attachment.url);
     image.then((img) => {
       img[action](value);
